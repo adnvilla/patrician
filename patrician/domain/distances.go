@@ -1,8 +1,8 @@
 package domain
 
 // Distances The distances between cities
-var Distances = map[string]map[string]int64{
-	"Edimburgo": map[string]int64{
+var Distances = map[string]map[string]float64{
+	"Edimburgo": map[string]float64{
 		"Scarborough": 2,
 		"Londres":     2,
 		"Brujas":      2,
@@ -26,7 +26,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Scarborough": map[string]int64{
+	"Scarborough": map[string]float64{
 		"Edimburgo": 2,
 		"Londres":   2,
 		"Brujas":    2,
@@ -50,7 +50,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":     2,
 		"Ladoga":    2,
 		"Novgorod":  2},
-	"Londres": map[string]int64{
+	"Londres": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Brujas":      2,
@@ -74,7 +74,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Brujas": map[string]int64{
+	"Brujas": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -98,7 +98,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Colonia": map[string]int64{
+	"Colonia": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -122,7 +122,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Groninga": map[string]int64{
+	"Groninga": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -146,7 +146,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Bremen": map[string]int64{
+	"Bremen": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -170,7 +170,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Hamburgo": map[string]int64{
+	"Hamburgo": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -194,7 +194,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Ripen": map[string]int64{
+	"Ripen": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -218,7 +218,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Bergen": map[string]int64{
+	"Bergen": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -242,7 +242,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Oslo": map[string]int64{
+	"Oslo": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -266,7 +266,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Aalborg": map[string]int64{
+	"Aalborg": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -290,7 +290,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Malmo": map[string]int64{
+	"Malmo": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -314,7 +314,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Lubeck": map[string]int64{
+	"Lubeck": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -338,7 +338,8 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Rostock": map[string]int64{"Edimburgo": 2,
+	"Rostock": map[string]float64{
+		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
 		"Brujas":      2,
@@ -361,7 +362,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Stettin": map[string]int64{
+	"Stettin": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -385,7 +386,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Gdansk": map[string]int64{
+	"Gdansk": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -409,7 +410,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Torum": map[string]int64{
+	"Torum": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -433,7 +434,7 @@ var Distances = map[string]map[string]int64{
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Riga": map[string]int64{
+	"Riga": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -452,12 +453,36 @@ var Distances = map[string]map[string]int64{
 		"Stettin":     2,
 		"Gdansk":      2,
 		"Torum":       2,
-		"Visby":       2,
+		"Visby":       57,
 		"Estocolmo":   2,
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Visby": map[string]int64{
+	"Visby": map[string]float64{
+		"Edimburgo":   2,
+		"Scarborough": 2,
+		"Londres":     2,
+		"Brujas":      2,
+		"Colonia":     2,
+		"Groninga":    2,
+		"Bremen":      2,
+		"Hamburgo":    2,
+		"Ripen":       2,
+		"Bergen":      2,
+		"Oslo":        2,
+		"Aalborg":     2,
+		"Malmo":       2,
+		"Lubeck":      2,
+		"Rostock":     2,
+		"Stettin":     2,
+		"Gdansk":      2,
+		"Torum":       2,
+		"Riga":        57,
+		"Estocolmo":   36,
+		"Reval":       2,
+		"Ladoga":      2,
+		"Novgorod":    2},
+	"Estocolmo": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -477,59 +502,11 @@ var Distances = map[string]map[string]int64{
 		"Gdansk":      2,
 		"Torum":       2,
 		"Riga":        2,
-		"Estocolmo":   2,
+		"Visby":       36,
 		"Reval":       2,
 		"Ladoga":      2,
 		"Novgorod":    2},
-	"Estocolmo": map[string]int64{
-		"Edimburgo":   2,
-		"Scarborough": 2,
-		"Londres":     2,
-		"Brujas":      2,
-		"Colonia":     2,
-		"Groninga":    2,
-		"Bremen":      2,
-		"Hamburgo":    2,
-		"Ripen":       2,
-		"Bergen":      2,
-		"Oslo":        2,
-		"Aalborg":     2,
-		"Malmo":       2,
-		"Lubeck":      2,
-		"Rostock":     2,
-		"Stettin":     2,
-		"Gdansk":      2,
-		"Torum":       2,
-		"Riga":        2,
-		"Visby":       2,
-		"Reval":       2,
-		"Ladoga":      2,
-		"Novgorod":    2},
-	"Reval": map[string]int64{
-		"Edimburgo":   2,
-		"Scarborough": 2,
-		"Londres":     2,
-		"Brujas":      2,
-		"Colonia":     2,
-		"Groninga":    2,
-		"Bremen":      2,
-		"Hamburgo":    2,
-		"Ripen":       2,
-		"Bergen":      2,
-		"Oslo":        2,
-		"Aalborg":     2,
-		"Malmo":       2,
-		"Lubeck":      2,
-		"Rostock":     2,
-		"Stettin":     2,
-		"Gdansk":      2,
-		"Torum":       2,
-		"Riga":        2,
-		"Visby":       2,
-		"Estocolmo":   2,
-		"Ladoga":      2,
-		"Novgorod":    2},
-	"Ladoga": map[string]int64{
+	"Reval": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
@@ -551,9 +528,33 @@ var Distances = map[string]map[string]int64{
 		"Riga":        2,
 		"Visby":       2,
 		"Estocolmo":   2,
+		"Ladoga":      2,
+		"Novgorod":    2},
+	"Ladoga": map[string]float64{
+		"Edimburgo":   2,
+		"Scarborough": 2,
+		"Londres":     2,
+		"Brujas":      2,
+		"Colonia":     2,
+		"Groninga":    2,
+		"Bremen":      2,
+		"Hamburgo":    2,
+		"Ripen":       2,
+		"Bergen":      2,
+		"Oslo":        2,
+		"Aalborg":     2,
+		"Malmo":       2,
+		"Lubeck":      2,
+		"Rostock":     2,
+		"Stettin":     2,
+		"Gdansk":      2,
+		"Torum":       2,
+		"Riga":        2,
+		"Visby":       2,
+		"Estocolmo":   2,
 		"Reval":       2,
 		"Novgorod":    2},
-	"Novgorod": map[string]int64{
+	"Novgorod": map[string]float64{
 		"Edimburgo":   2,
 		"Scarborough": 2,
 		"Londres":     2,
