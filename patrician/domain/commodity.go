@@ -4,14 +4,14 @@ package domain
 type Commodity struct {
 	Entity
 	CommodityType
-	Buy         float64
-	Sell        float64
-	Production  float64
-	Consumption float64
+	Buy         int64
+	Sell        int64
+	Production  int64
+	Consumption int64
 }
 
 // GetStock Obtains Production result less Consumption
-func (c *Commodity) GetStock() float64 {
+func (c *Commodity) GetStock() int64 {
 	return c.Production - c.Consumption
 }
 

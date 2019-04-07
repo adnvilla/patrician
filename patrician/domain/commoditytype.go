@@ -5,6 +5,6 @@ type CommodityType int
 
 // Commodities types
 const (
-	Load   CommodityType = iota + 1
-	Barrel CommodityType = iota
+	Load CommodityType = iota + 1
+	Barrel
 )

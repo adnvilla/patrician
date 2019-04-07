@@ -11,7 +11,7 @@ func (c *City) getDistances() map[string]float64 {
 	return Distances[c.Name]
 }
 
-func (c *City) UpdateCommodity(name string, buy, sell, production, consumption float64) {
+func (c *City) UpdateCommodity(name string, buy, sell, production, consumption int64) {
 	commodities := c.MarketHall.Commodities
 	commodity := commodities[name]
 
@@ -29,14 +29,14 @@ func (c *City) SetMarketHall(markethall MarketHall) {
 	c.MarketHall = markethall
 }
 
-func (c *City) GetStockCommodity(name string) float64 {
+func (c *City) GetStockCommodity(name string) int64 {
 	commodities := c.MarketHall.Commodities
 	commodity := commodities[name]
 
 	return commodity.GetStock()
 }
 
-func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) float64 {
+func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) int64 {
 	commodities := c.MarketHall.Commodities
 	commodity := commodities[namecommodity]
 
@@ -46,19 +46,19 @@ func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) float6
 
 	stock := commodity.GetStock()
 
-	return (stock * distanceInDays) / Week
+	return int64((float64(stock) * distanceInDays) / (Week / 30))
 }
 
-func (c *City) GetSupplyCommoditiesFromCity(city string) map[string]float64 {
-	supply := map[string]float64{}
+func (c *City) GetSupplyCommoditiesFromCity(city string) map[string]int64 {
+	supply := map[string]int64{}
 	for name := range c.MarketHall.Commodities {
 		supply[name] = c.GetSupplyCommodityFromCity(name, city)
 	}
 	return supply
 }
 
-func (c *City) GetStockCommodities() map[string]float64 {
-	stocks := map[string]float64{}
+func (c *City) GetStockCommodities() map[string]int64 {
+	stocks := map[string]int64{}
 	for name := range c.MarketHall.Commodities {
 		stocks[name] = c.GetStockCommodity(name)
 	}
