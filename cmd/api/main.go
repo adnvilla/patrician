@@ -6,6 +6,7 @@ import (
 
 func main() {
 	for _, city := range domain.Cities {
-		city.SetCommodities(domain.GetCommodities())
+		c := domain.GetCommodities()
+		city.SetCommodities(c)
 	}
 }

@@ -1,5 +1,5 @@
 package domain
 
 type MarketHall struct {
-	Commodities *map[string]Commodity
+	Commodities map[string]*Commodity
 }

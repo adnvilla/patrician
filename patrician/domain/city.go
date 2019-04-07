@@ -4,7 +4,7 @@ package domain
 type City struct {
 	Entity
 	Name       string
-	MarketHall *MarketHall
+	MarketHall MarketHall
 }
 
 func (c *City) getDistances() map[string]float64 {
@@ -12,7 +12,7 @@ func (c *City) getDistances() map[string]float64 {
 }
 
 func (c *City) UpdateCommodity(name string, buy, sell, production, consumption float64) {
-	commodities := *c.MarketHall.Commodities
+	commodities := c.MarketHall.Commodities
 	commodity := commodities[name]
 
 	commodity.Buy = buy
@@ -21,19 +21,23 @@ func (c *City) UpdateCommodity(name string, buy, sell, production, consumption f
 	commodity.Consumption = consumption
 }
 
-func (c *City) SetCommodities(commodities *map[string]Commodity) {
+func (c *City) SetCommodities(commodities map[string]*Commodity) {
 	c.MarketHall.Commodities = commodities
 }
 
+func (c *City) SetMarketHall(markethall MarketHall) {
+	c.MarketHall = markethall
+}
+
 func (c *City) GetStockCommodity(name string) float64 {
-	commodities := *c.MarketHall.Commodities
+	commodities := c.MarketHall.Commodities
 	commodity := commodities[name]
 
 	return commodity.GetStock()
 }
 
 func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) float64 {
-	commodities := *c.MarketHall.Commodities
+	commodities := c.MarketHall.Commodities
 	commodity := commodities[namecommodity]
 
 	distance := c.getDistances()[namecity]
@@ -45,30 +49,46 @@ func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) float6
 	return (stock * distanceInDays) / Week
 }
 
+func (c *City) GetSupplyCommoditiesFromCity(city string) map[string]float64 {
+	supply := map[string]float64{}
+	for name := range c.MarketHall.Commodities {
+		supply[name] = c.GetSupplyCommodityFromCity(name, city)
+	}
+	return supply
+}
+
+func (c *City) GetStockCommodities() map[string]float64 {
+	stocks := map[string]float64{}
+	for name := range c.MarketHall.Commodities {
+		stocks[name] = c.GetStockCommodity(name)
+	}
+	return stocks
+}
+
 //Cities The Cities default
-var Cities = map[string]City{
-	"Edimburgo":   City{Name: "Edimburgo", MarketHall: &MarketHall{}},
-	"Scarborough": City{Name: "Scarborough", MarketHall: &MarketHall{}},
-	"Londres":     City{Name: "Londres", MarketHall: &MarketHall{}},
-	"Brujas":      City{Name: "Brujas", MarketHall: &MarketHall{}},
-	"Colonia":     City{Name: "Colonia", MarketHall: &MarketHall{}},
-	"Groninga":    City{Name: "Groninga", MarketHall: &MarketHall{}},
-	"Bremen":      City{Name: "Bremen", MarketHall: &MarketHall{}},
-	"Hamburgo":    City{Name: "Hamburgo", MarketHall: &MarketHall{}},
-	"Ripen":       City{Name: "Ripen", MarketHall: &MarketHall{}},
-	"Bergen":      City{Name: "Bergen", MarketHall: &MarketHall{}},
-	"Oslo":        City{Name: "Oslo", MarketHall: &MarketHall{}},
-	"Aalborg":     City{Name: "Aalborg", MarketHall: &MarketHall{}},
-	"Malmo":       City{Name: "Malmo", MarketHall: &MarketHall{}},
-	"Lubeck":      City{Name: "Lubeck", MarketHall: &MarketHall{}},
-	"Rostock":     City{Name: "Rostock", MarketHall: &MarketHall{}},
-	"Stettin":     City{Name: "Stettin", MarketHall: &MarketHall{}},
-	"Gdansk":      City{Name: "Gdansk", MarketHall: &MarketHall{}},
-	"Torum":       City{Name: "Torum", MarketHall: &MarketHall{}},
-	"Riga":        City{Name: "Riga", MarketHall: &MarketHall{}},
-	"Visby":       City{Name: "Visby", MarketHall: &MarketHall{}},
-	"Estocolmo":   City{Name: "Estocolmo", MarketHall: &MarketHall{}},
-	"Reval":       City{Name: "Reval", MarketHall: &MarketHall{}},
-	"Ladoga":      City{Name: "Ladoga", MarketHall: &MarketHall{}},
-	"Novgorod":    City{Name: "Novgorod", MarketHall: &MarketHall{}},
+var Cities = map[string]*City{
+	"Edimburgo":   &City{Name: "Edimburgo"},
+	"Scarborough": &City{Name: "Scarborough"},
+	"Londres":     &City{Name: "Londres"},
+	"Brujas":      &City{Name: "Brujas"},
+	"Colonia":     &City{Name: "Colonia"},
+	"Groninga":    &City{Name: "Groninga"},
+	"Bremen":      &City{Name: "Bremen"},
+	"Hamburgo":    &City{Name: "Hamburgo"},
+	"Ripen":       &City{Name: "Ripen"},
+	"Bergen":      &City{Name: "Bergen"},
+	"Oslo":        &City{Name: "Oslo"},
+	"Aalborg":     &City{Name: "Aalborg"},
+	"Malmo":       &City{Name: "Malmo"},
+	"Lubeck":      &City{Name: "Lubeck"},
+	"Rostock":     &City{Name: "Rostock"},
+	"Stettin":     &City{Name: "Stettin"},
+	"Gdansk":      &City{Name: "Gdansk"},
+	"Torum":       &City{Name: "Torum"},
+	"Riga":        &City{Name: "Riga"},
+	"Visby":       &City{Name: "Visby"},
+	"Estocolmo":   &City{Name: "Estocolmo"},
+	"Reval":       &City{Name: "Reval"},
+	"Ladoga":      &City{Name: "Ladoga"},
+	"Novgorod":    &City{Name: "Novgorod"},
 }
