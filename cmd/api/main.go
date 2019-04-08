@@ -15,6 +15,8 @@ func main() {
 
 	router := gin.Default()
 
+	router.Use(Cors())
+
 	router.GET("/cities", getCities)
 	router.GET("/distances", getDistances)
 	router.POST("/city/:name/commodity", updateCommodity)
@@ -24,6 +26,12 @@ func main() {
 	// By default it serves on :8080 unless a
 	// PORT environment variable was defined.
 	router.Run()
+}
+
+func Cors() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	}
 }
 
 func getCities(c *gin.Context) {
