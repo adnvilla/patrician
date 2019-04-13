@@ -21,6 +21,10 @@ func (c *City) UpdateCommodity(name string, buy, sell, production, consumption i
 	commodity.Consumption = consumption
 }
 
+func (c *City) GetCommodities() map[string]*Commodity {
+	return c.MarketHall.Commodities
+}
+
 func (c *City) SetCommodities(commodities map[string]*Commodity) {
 	c.MarketHall.Commodities = commodities
 }
