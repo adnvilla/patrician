@@ -1,10 +1,10 @@
 # appveyor.yml
 build: off
 
-clone_folder: /usr/go/src/github.com/adnvilla/patrician
+clone_folder: c:\gopath\src\github.com\$username\$project
 
 environment:
-  GOPATH: /usr/go/
+  GOPATH: c:\gopath
 
 stack: go 1.10
 
