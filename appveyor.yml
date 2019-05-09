@@ -3,6 +3,9 @@ version: "{build}"
 
 clone_folder: c:\gopath\src\github.com\adnvilla\patrician
 
+services:
+  - mysql
+
 environment:
   GOPATH: c:\gopath
 
