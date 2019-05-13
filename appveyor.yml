@@ -1,15 +1,15 @@
-# appveyor.yml
-build: off
-
-clone_folder: c:\gopath\src\github.com\adnvilla\patrician
+build_cloud: docker
 
 environment:
-  GOPATH: c:\gopath
+  matrix:
 
-stack: go 1.12
+  - job_name: Build
+    docker_image: golang:1.11
 
-before_test:
-  - go vet ./...
-
-test_script:
-  - go test ./...
+for:
+-
+  matrix:
+    only:
+      - job_name: Build
+  build_script:
+  - echo This is a build stage!
