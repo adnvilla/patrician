@@ -1,16 +1,15 @@
 # appveyor.yml
-version: "{build}"
+build: off
 
 clone_folder: c:\gopath\src\github.com\adnvilla\patrician
-
-services:
-  - mysql
 
 environment:
   GOPATH: c:\gopath
 
+stack: go 1.12
+
 before_test:
   - go vet ./...
 
-build_script:
-  - go test -v ./...
+test_script:
+  - go test ./...
