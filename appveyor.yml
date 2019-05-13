@@ -2,10 +2,8 @@ build_cloud: docker
 
 environment:
   matrix:
-
   - job_name: Build
     docker_image: golang:1.11
-
 for:
 -
   matrix:
