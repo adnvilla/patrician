@@ -7,11 +7,11 @@ type City struct {
 	MarketHall MarketHall
 }
 
-func (c *City) getDistances() map[string]float64 {
+func (c *City) getDistances() map[string]float32 {
 	return Distances[c.Name]
 }
 
-func (c *City) UpdateCommodity(name string, buy, sell, production, consumption int64) {
+func (c *City) UpdateCommodity(name string, buy, sell, production, consumption int16) {
 	commodities := c.MarketHall.Commodities
 	commodity := commodities[name]
 
@@ -33,14 +33,14 @@ func (c *City) SetMarketHall(markethall MarketHall) {
 	c.MarketHall = markethall
 }
 
-func (c *City) GetStockCommodity(name string) int64 {
+func (c *City) GetStockCommodity(name string) int16 {
 	commodities := c.MarketHall.Commodities
 	commodity := commodities[name]
 
 	return commodity.GetStock()
 }
 
-func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) int64 {
+func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) int16 {
 	commodities := c.MarketHall.Commodities
 	commodity := commodities[namecommodity]
 
@@ -50,19 +50,19 @@ func (c *City) GetSupplyCommodityFromCity(namecommodity, namecity string) int64 
 
 	stock := commodity.GetStock()
 
-	return int64((float64(stock) * distanceInDays) / (Week / 30))
+	return int16((float32(stock) * distanceInDays) / (Week / 30))
 }
 
-func (c *City) GetSupplyCommoditiesFromCity(city string) map[string]int64 {
-	supply := map[string]int64{}
+func (c *City) GetSupplyCommoditiesFromCity(city string) map[string]int16 {
+	supply := map[string]int16{}
 	for name := range c.MarketHall.Commodities {
 		supply[name] = c.GetSupplyCommodityFromCity(name, city)
 	}
 	return supply
 }
 
-func (c *City) GetStockCommodities() map[string]int64 {
-	stocks := map[string]int64{}
+func (c *City) GetStockCommodities() map[string]int16 {
+	stocks := map[string]int16{}
 	for name := range c.MarketHall.Commodities {
 		stocks[name] = c.GetStockCommodity(name)
 	}

@@ -5,14 +5,14 @@ type Commodity struct {
 	Entity
 	Name          string
 	CommodityType CommodityType
-	Buy           int64
-	Sell          int64
-	Production    int64
-	Consumption   int64
+	Buy           int16
+	Sell          int16
+	Production    int16
+	Consumption   int16
 }
 
 // GetStock Obtains Production result less Consumption
-func (c *Commodity) GetStock() int64 {
+func (c *Commodity) GetStock() int16 {
 	return c.Production - c.Consumption
 }
 

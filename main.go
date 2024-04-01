@@ -111,10 +111,10 @@ func updateCommodities(c *gin.Context) {
 
 type Commodity struct {
 	Name        string `json:"name" binding:"required"`
-	Buy         int64  `json:"buy" binding:"required"`
-	Sell        int64  `json:"sell" binding:"required"`
-	Production  int64  `json:"production" binding:"required"`
-	Consumption int64  `json:"consumption" binding:"required"`
+	Buy         int16  `json:"buy" binding:"required"`
+	Sell        int16  `json:"sell" binding:"required"`
+	Production  int16  `json:"production" binding:"required"`
+	Consumption int16  `json:"consumption" binding:"required"`
 }
 
 type Commodities struct {

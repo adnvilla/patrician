@@ -1,7 +1,7 @@
 package domain
 
 // Distances The distances between cities
-var Distances = map[string]map[string]float64{
+var Distances = map[string]map[string]float32{
 	"Edimburgo": {
 		"Scarborough": 2,
 		"Londres":     2,
