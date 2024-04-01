@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	usecases "github.com/adnvilla/patrician/src/application/use_cases"
 	"github.com/adnvilla/patrician/src/domain"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -33,7 +34,11 @@ func main() {
 }
 
 func getCities(c *gin.Context) {
-	c.JSON(200, domain.Cities)
+	usecase := usecases.NewGetCitiesUseCase()
+
+	result, _ := usecase.Handle(c, nil)
+
+	c.JSON(200, result)
 }
 
 func getCommodities(c *gin.Context) {
