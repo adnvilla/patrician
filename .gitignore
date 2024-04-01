@@ -1,0 +1,3 @@
+# Compiled object files
+bin/
+commit_hash.go
