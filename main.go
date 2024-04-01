@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/adnvilla/patrician/patrician/domain"
+	"github.com/adnvilla/patrician/src/domain"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
