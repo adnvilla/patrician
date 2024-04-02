@@ -20,9 +20,9 @@ func main() {
 	router.Use(cors.Default())
 
 	router.GET("/cities", controllers.GetCities)
-	router.GET("/commodities", getCommodities)
-	router.GET("/distances", getDistances)
-	router.GET("/city/:name/commodities", getCityCommodities)
+	router.GET("/commodities", controllers.GetCommodities)
+	router.GET("/distances", controllers.GetDistances)
+	router.GET("/city/:name/commodities", controllers.GetCityCommodities)
 	router.POST("/city/:name/commodity", updateCommodity)
 	router.POST("/city/:name/commodities", updateCommodities)
 	router.GET("/city/:name/stock", getStock)
@@ -31,22 +31,6 @@ func main() {
 	// By default it serves on :8080 unless a
 	// PORT environment variable was defined.
 	router.Run()
-}
-
-func getCommodities(c *gin.Context) {
-	c.JSON(200, domain.GetCommodities())
-}
-
-func getDistances(c *gin.Context) {
-	c.JSON(200, domain.Distances)
-}
-
-func getCityCommodities(c *gin.Context) {
-	name := c.Param("name")
-
-	city := domain.Cities[name]
-
-	c.JSON(200, city.GetCommodities())
 }
 
 func getStock(c *gin.Context) {

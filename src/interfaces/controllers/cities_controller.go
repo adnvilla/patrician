@@ -14,3 +14,16 @@ func GetCities(c *gin.Context) {
 
 	c.JSON(http.StatusOK, result)
 }
+
+func GetCityCommodities(c *gin.Context) {
+	usecase := usecases.NewGetCityCommoditiesUseCase()
+
+	name := c.Param("name")
+	input := usecases.GetCityCommoditiesInput{
+		CityName: name,
+	}
+
+	result, _ := usecase.Handle(c, input)
+
+	c.JSON(http.StatusOK, result)
+}
