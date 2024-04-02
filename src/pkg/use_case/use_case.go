@@ -2,8 +2,8 @@ package use_case
 
 import "context"
 
-type UseCase interface {
-	Handle(ctx context.Context, in Input) (Output, error)
+type UseCase[TRequest any, TResponse any] interface {
+	Handle(ctx context.Context, in TRequest) (TResponse, error)
 }
 
 type Input interface{}

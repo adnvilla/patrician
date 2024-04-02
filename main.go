@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	usecases "github.com/adnvilla/patrician/src/application/use_cases"
 	"github.com/adnvilla/patrician/src/domain"
+	"github.com/adnvilla/patrician/src/interfaces/controllers"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +19,7 @@ func main() {
 
 	router.Use(cors.Default())
 
-	router.GET("/cities", getCities)
+	router.GET("/cities", controllers.GetCities)
 	router.GET("/commodities", getCommodities)
 	router.GET("/distances", getDistances)
 	router.GET("/city/:name/commodities", getCityCommodities)
@@ -31,14 +31,6 @@ func main() {
 	// By default it serves on :8080 unless a
 	// PORT environment variable was defined.
 	router.Run()
-}
-
-func getCities(c *gin.Context) {
-	usecase := usecases.NewGetCitiesUseCase()
-
-	result, _ := usecase.Handle(c, nil)
-
-	c.JSON(200, result)
 }
 
 func getCommodities(c *gin.Context) {
