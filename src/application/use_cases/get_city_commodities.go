@@ -19,7 +19,6 @@ func NewGetCityCommoditiesUseCase() use_case.UseCase[GetCityCommoditiesInput, ma
 }
 
 func (u *GetCityCommoditiesUseCase) Handle(ctx context.Context, in GetCityCommoditiesInput) (map[string]*domain.Commodity, error) {
-
 	city := domain.Cities[in.CityName]
 	return city.GetCommodities(), nil
 }
