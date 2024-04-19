@@ -18,11 +18,11 @@ func TestSupplyCommodity(t *testing.T) {
 
 	city.UpdateCommodity("Beer", 15, 16, 10, 100)
 	stock := city.GetSupplyCommodityFromCity("Beer", "Visby")
-	assert.Equal(t, int64(-30), stock)
+	assert.Equal(t, int16(-30), stock)
 
 	city.UpdateCommodity("Beer", 16, 17, 11, 110)
 	stock = city.GetSupplyCommodityFromCity("Beer", "Visby")
-	assert.Equal(t, int64(-33), stock)
+	assert.Equal(t, int16(-33), stock)
 
 	assert.NotNil(t, city)
 	assert.NotNil(t, city.MarketHall)
