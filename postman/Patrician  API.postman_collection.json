@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "ca829b79-982b-48f1-93ea-1faa7d4b70ca",
+		"name": "Patrician  API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1230936"
+	},
+	"item": [
+		{
+			"name": "GET Cities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/cities",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Commodities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/commodities",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"commodities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Distances",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/distances",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET City Commodities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/city/estocolmo/commodities",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"city",
+						"estocolmo",
+						"commodities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST City Commodities",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/city/estocolmo/commodities",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"city",
+						"estocolmo",
+						"commodities"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
