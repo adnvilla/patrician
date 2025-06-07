@@ -1,11 +1,11 @@
 module github.com/adnvilla/patrician
 
-go 1.21
+go 1.24
 
 require (
-	github.com/gin-contrib/cors v0.0.0-20190301062745-f9e10995c85a
-	github.com/gin-gonic/gin v1.3.0
-	github.com/stretchr/testify v1.3.0
+	github.com/gin-contrib/cors v1.3.1
+	github.com/gin-gonic/gin v1.9.1
+	github.com/stretchr/testify v1.8.4
 )
 
 require (
