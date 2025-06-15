@@ -1,4 +1,4 @@
-package controllers_test
+package handlers_test
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/adnvilla/patrician/src/domain"
-	"github.com/adnvilla/patrician/src/interfaces/controllers"
+	"github.com/adnvilla/patrician/src/interfaces/handlers"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
@@ -22,10 +22,10 @@ func prepareCities() {
 func setupRouter() *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	r := gin.Default()
-	r.GET("/cities", controllers.GetCities)
-	r.GET("/commodities", controllers.GetCommodities)
-	r.GET("/distances", controllers.GetDistances)
-	r.GET("/city/:name/commodities", controllers.GetCityCommodities)
+	r.GET("/cities", handlers.GetCities)
+	r.GET("/commodities", handlers.GetCommodities)
+	r.GET("/distances", handlers.GetDistances)
+	r.GET("/city/:name/commodities", handlers.GetCityCommodities)
 	return r
 }
 
