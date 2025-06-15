@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"net/http"
@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetCommodities(c *gin.Context) {
-	usecase := usecases.NewGetCommoditiesUseCase()
+func GetDistances(c *gin.Context) {
+	usecase := usecases.NewGetDistancesUseCase()
 
 	result, _ := usecase.Handle(c, nil)
 
