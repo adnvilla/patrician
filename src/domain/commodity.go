@@ -3,8 +3,8 @@ package domain
 // Commodity Represents a commodity for trade
 type Commodity struct {
 	Entity
-	Name          string
-	CommodityType CommodityType
+	Name          string        `gorm:"index"`
+	CommodityType CommodityType `gorm:"column:commodity_type"`
 	Buy           int16
 	Sell          int16
 	Production    int16
