@@ -1,6 +1,6 @@
 package domain
 
-// Day Seconds to change day
+// Day represents the number of in-game seconds in one day
 const Day = float32(30)
 
 // Week represents the number of in-game seconds in one week
