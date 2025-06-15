@@ -1,5 +1,7 @@
 package domain
 
+import "fmt"
+
 // City The city
 type City struct {
 	Entity
@@ -11,14 +13,19 @@ func (c *City) getDistances() map[string]float32 {
 	return Distances[c.Name]
 }
 
-func (c *City) UpdateCommodity(name string, buy, sell, production, consumption int16) {
+func (c *City) UpdateCommodity(name string, buy, sell, production, consumption int16) error {
 	commodities := c.MarketHall.Commodities
-	commodity := commodities[name]
+	commodity, ok := commodities[name]
+	if !ok {
+		return fmt.Errorf("commodity %s not found", name)
+	}
 
 	commodity.Buy = buy
 	commodity.Sell = sell
 	commodity.Production = production
 	commodity.Consumption = consumption
+
+	return nil
 }
 
 func (c *City) GetCommodities() map[string]*Commodity {
@@ -69,7 +76,7 @@ func (c *City) GetStockCommodities() map[string]int16 {
 	return stocks
 }
 
-//Cities The Cities default
+// Cities The Cities default
 var Cities = map[string]*City{
 	"Edimburgo":   {Name: "Edimburgo"},
 	"Scarborough": {Name: "Scarborough"},
