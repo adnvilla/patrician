@@ -1,5 +1,6 @@
 package domain
 
 type MarketHall struct {
-	Commodities map[string]*Commodity
+	Entity
+	Commodities map[string]*Commodity `gorm:"-"`
 }

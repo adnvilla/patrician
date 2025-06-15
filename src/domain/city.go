@@ -5,8 +5,8 @@ import "fmt"
 // City The city
 type City struct {
 	Entity
-	Name       string
-	MarketHall MarketHall
+	Name       string     `gorm:"uniqueIndex"`
+	MarketHall MarketHall `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 func (c *City) getDistances() map[string]float32 {
