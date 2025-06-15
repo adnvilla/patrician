@@ -66,7 +66,10 @@ func updateCommodity(c *gin.Context) {
 
 	city := domain.Cities[name]
 
-	city.UpdateCommodity(commodity.Name, commodity.Buy, commodity.Sell, commodity.Production, commodity.Consumption)
+	if err := city.UpdateCommodity(commodity.Name, commodity.Buy, commodity.Sell, commodity.Production, commodity.Consumption); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	c.String(http.StatusOK, "updated!")
 }
@@ -84,7 +87,10 @@ func updateCommodities(c *gin.Context) {
 	city := domain.Cities[name]
 
 	for _, commodity := range commodities.Commodities {
-		city.UpdateCommodity(commodity.Name, commodity.Buy, commodity.Sell, commodity.Production, commodity.Consumption)
+		if err := city.UpdateCommodity(commodity.Name, commodity.Buy, commodity.Sell, commodity.Production, commodity.Consumption); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 	}
 
 	c.String(http.StatusOK, "updated!")
