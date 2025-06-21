@@ -26,8 +26,10 @@ func TestCityRepositoryPostgres(t *testing.T) {
 	if os.Getenv("POSTGRES_DSN") == "" {
 		t.Skip("POSTGRES_DSN not set")
 	}
-	setupPostgresDB(t)
-	db, _ := postgresql.GetDB()
+	db, err := setupPostgresDB(t)
+	if err != nil {
+		t.Fatalf("setupPostgresDB: %v", err)
+	}
 	repo := postgresql.NewCityRepository(db)
 
 	commodities := domain.GetCommodities()
