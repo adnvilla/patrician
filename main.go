@@ -1,10 +1,16 @@
 package main
 
 import (
+	"context"
+	"log"
+
 	"github.com/adnvilla/patrician/src/domain"
 	"github.com/adnvilla/patrician/src/interfaces/handlers"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+
+	middleware "github.com/deepmap/oapi-codegen/pkg/gin-middleware"
+	"github.com/getkin/kin-openapi/openapi3"
 )
 
 func main() {
@@ -16,6 +22,16 @@ func main() {
 	router := gin.Default()
 
 	router.Use(cors.Default())
+
+	swagger, err := openapi3.NewLoader().LoadFromFile("docs/apenapi.yaml")
+	if err != nil {
+		log.Fatalf("load swagger: %v", err)
+	}
+	if err = swagger.Validate(context.Background()); err != nil {
+		log.Fatalf("validate swagger: %v", err)
+	}
+
+	router.Use(middleware.OapiRequestValidator(swagger))
 
 	router.GET("/cities", handlers.GetCities)
 	router.GET("/commodities", handlers.GetCommodities)
