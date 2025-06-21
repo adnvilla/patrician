@@ -42,5 +42,5 @@ jobs:
 
     - name: Test
       env:
-        POSTGRES_DSN: "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
+        POSTGRES_DSN: host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable
       run: go test -v ./...
