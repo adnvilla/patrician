@@ -7,3 +7,5 @@ commit_hash.go
 
 # Backup files
 *.bak
+
+coverage.out

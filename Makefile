@@ -14,19 +14,11 @@ run: build
 	./bin/patrician
 
 test:
-	go test ./...
-
-test-verbose:
 	go test -v ./...
 
 test-coverage:
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out
-
-.PHONY: build install commit_hash run test test-verbose test-coverage
-
-test:
-	go test -v ./...
 
 test-cover:
 	go test -coverprofile=coverage.out ./...
@@ -46,3 +38,5 @@ test-handlers:
 
 test-repositories:
 	go test -v ./src/infrastructure/data/postgresql/...
+
+.PHONY: build install commit_hash run test test-coverage test-cover test-integration test-domain test-use-cases test-handlers test-repositories

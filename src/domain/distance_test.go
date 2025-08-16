@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Distance structure tests
 func TestDistanceStructure(t *testing.T) {
 	distance := domain.Distance{
 		FromCity: "Estocolmo",
@@ -34,7 +35,7 @@ func TestDistanceEntityInheritance(t *testing.T) {
 	assert.Equal(t, uint(0), distance.Entity.ID)
 	assert.True(t, distance.Entity.CreatedAt.IsZero())
 	assert.True(t, distance.Entity.UpdatedAt.IsZero())
-	assert.Nil(t, distance.Entity.DeletedAt.Time)
+	assert.False(t, distance.Entity.DeletedAt.Valid)
 }
 
 func TestDistanceZeroValue(t *testing.T) {
@@ -66,6 +67,7 @@ func TestDistanceFloatPrecision(t *testing.T) {
 	assert.InDelta(t, 1.23456789, distance.Value, 0.000001)
 }
 
+// Distances map tests
 func TestDistancesMapStructure(t *testing.T) {
 	distances := domain.Distances
 
@@ -80,18 +82,31 @@ func TestDistancesMapStructure(t *testing.T) {
 	}
 }
 
-func TestDistancesSymmetry(t *testing.T) {
-	distances := domain.Distances
+func TestDistancesConsistency(t *testing.T) {
+	// Test that all cities in the distances map have entries for all other cities
+	for fromCity, distancesMap := range domain.Distances {
+		for toCity := range domain.Distances {
+			if fromCity != toCity {
+				// Check that a distance exists from fromCity to toCity
+				distance, exists := distancesMap[toCity]
+				assert.True(t, exists, "Distance from %s to %s should exist", fromCity, toCity)
+				assert.Greater(t, distance, float32(0), "Distance from %s to %s should be positive", fromCity, toCity)
+			}
+		}
+	}
+}
 
+func TestDistancesSymmetry(t *testing.T) {
 	// Test that distances are symmetric (distance from A to B equals distance from B to A)
-	for fromCity, fromDistances := range distances {
-		for toCity, distance := range fromDistances {
-			if toDistances, exists := distances[toCity]; exists {
-				if reverseDistance, exists := toDistances[fromCity]; exists {
-					assert.Equal(t, distance, reverseDistance,
-						"Distance from %s to %s should equal distance from %s to %s",
-						fromCity, toCity, toCity, fromCity)
-				}
+	for fromCity, distancesMap := range domain.Distances {
+		for toCity, distance := range distancesMap {
+			if fromCity != toCity {
+				// Get the reverse distance
+				reverseDistance, exists := domain.Distances[toCity][fromCity]
+				assert.True(t, exists, "Reverse distance from %s to %s should exist", toCity, fromCity)
+				assert.Equal(t, distance, reverseDistance,
+					"Distance from %s to %s should equal distance from %s to %s",
+					fromCity, toCity, toCity, fromCity)
 			}
 		}
 	}
