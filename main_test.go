@@ -26,7 +26,7 @@ func setupTestRouter() *gin.Engine {
 	router := gin.Default()
 
 	// Load OpenAPI spec
-	swagger, err := openapi3.NewLoader().LoadFromFile("docs/apenapi.yaml")
+	swagger, err := openapi3.NewLoader().LoadFromFile("docs/openapi.yaml")
 	if err != nil {
 		panic(err)
 	}

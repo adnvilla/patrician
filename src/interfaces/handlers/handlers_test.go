@@ -27,7 +27,7 @@ func prepareCities() {
 func setupRouter() *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	r := gin.Default()
-	swagger, err := openapi3.NewLoader().LoadFromFile("../../../docs/apenapi.yaml")
+	swagger, err := openapi3.NewLoader().LoadFromFile("../../../docs/openapi.yaml")
 	if err != nil {
 		panic(err)
 	}
