@@ -13,9 +13,6 @@ commit_hash:
 run: build
 	./bin/patrician
 
-test:
-	go test ./...
-
 test-verbose:
 	go test -v ./...
 
