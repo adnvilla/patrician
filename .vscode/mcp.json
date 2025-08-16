@@ -1,0 +1,31 @@
+{
+   
+    "servers": {
+        "git": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "-v",
+                "D:\\Code:/code",
+                "mcp/git"
+            ]
+        },
+        "filesystem": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "--mount", "type=bind,src=D:\\Code,dst=/code",
+                "mcp/filesystem",
+                "/code"
+            ]
+        },
+        "github": {
+           "type": "http",
+            "url": "https://api.githubcopilot.com/mcp/"
+        }
+    }
+}
