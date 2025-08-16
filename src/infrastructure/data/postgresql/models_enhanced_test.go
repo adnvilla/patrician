@@ -109,10 +109,12 @@ func TestCommodityTypeMapping(t *testing.T) {
 }
 
 func TestModelRelationships(t *testing.T) {
-	// Test the relationship structure
+	// Test the relationship structure - simulate what GORM would do
 	marketHall := postgresql.MarketHallModel{
 		CityID: 1,
 	}
+	// Simulate GORM setting the ID
+	marketHall.Entity.ID = 1
 
 	city := postgresql.CityModel{
 		Name:         "TestCity",
@@ -126,8 +128,8 @@ func TestModelRelationships(t *testing.T) {
 	}
 
 	// Test relationships
-	assert.Equal(t, city.MarketHallID, marketHall.Entity.ID)      // This would be set by GORM
-	assert.Equal(t, commodity.MarketHallID, marketHall.Entity.ID) // This would be set by GORM
+	assert.Equal(t, city.MarketHallID, marketHall.Entity.ID)      // Should match after GORM would set it
+	assert.Equal(t, commodity.MarketHallID, marketHall.Entity.ID) // Should match after GORM would set it
 }
 
 func TestModelZeroValues(t *testing.T) {
