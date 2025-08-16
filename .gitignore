@@ -4,3 +4,6 @@ commit_hash.go
 
 # Goland files
 .idea
+
+# Backup files
+*.bak
