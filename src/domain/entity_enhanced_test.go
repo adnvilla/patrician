@@ -10,7 +10,7 @@ import (
 
 func TestEntityStructure(t *testing.T) {
 	entity := domain.Entity{}
-	
+
 	// Test that Entity has gorm.Model embedded
 	assert.Equal(t, uint(0), entity.ID)
 	assert.True(t, entity.CreatedAt.IsZero())
@@ -23,20 +23,20 @@ func TestEntityInheritance(t *testing.T) {
 	city := domain.City{
 		Name: "TestCity",
 	}
-	
+
 	// City should have Entity fields
 	assert.Equal(t, uint(0), city.ID)
 	assert.True(t, city.CreatedAt.IsZero())
 	assert.True(t, city.UpdatedAt.IsZero())
 	assert.Nil(t, city.DeletedAt.Time)
 	assert.Equal(t, "TestCity", city.Name)
-	
+
 	// Test that Commodity inherits from Entity
 	commodity := domain.Commodity{
-		Name: "TestCommodity",
+		Name:          "TestCommodity",
 		CommodityType: domain.Barrel,
 	}
-	
+
 	// Commodity should have Entity fields
 	assert.Equal(t, uint(0), commodity.ID)
 	assert.True(t, commodity.CreatedAt.IsZero())
@@ -44,12 +44,12 @@ func TestEntityInheritance(t *testing.T) {
 	assert.Nil(t, commodity.DeletedAt.Time)
 	assert.Equal(t, "TestCommodity", commodity.Name)
 	assert.Equal(t, domain.Barrel, commodity.CommodityType)
-	
+
 	// Test that MarketHall inherits from Entity
 	marketHall := domain.MarketHall{
 		Commodities: make(map[string]*domain.Commodity),
 	}
-	
+
 	// MarketHall should have Entity fields
 	assert.Equal(t, uint(0), marketHall.ID)
 	assert.True(t, marketHall.CreatedAt.IsZero())
@@ -60,7 +60,7 @@ func TestEntityInheritance(t *testing.T) {
 
 func TestEntityFieldTypes(t *testing.T) {
 	entity := domain.Entity{}
-	
+
 	// Test field types
 	assert.IsType(t, uint(0), entity.ID)
 	assert.IsType(t, time.Time{}, entity.CreatedAt)
@@ -70,7 +70,7 @@ func TestEntityFieldTypes(t *testing.T) {
 
 func TestEntityZeroValues(t *testing.T) {
 	entity := domain.Entity{}
-	
+
 	// Test zero values
 	assert.Zero(t, entity.ID)
 	assert.Zero(t, entity.CreatedAt)
@@ -85,12 +85,12 @@ func TestEntityCityComposition(t *testing.T) {
 			Commodities: domain.GetCommodities(),
 		},
 	}
-	
+
 	// Verify that City properly composes Entity
 	assert.Equal(t, "TestCity", city.Name)
 	assert.NotNil(t, city.MarketHall)
 	assert.Equal(t, len(domain.GetCommodities()), len(city.MarketHall.Commodities))
-	
+
 	// Verify Entity fields are accessible
 	assert.Equal(t, uint(0), city.Entity.ID)
 	assert.True(t, city.Entity.CreatedAt.IsZero())
@@ -105,7 +105,7 @@ func TestEntityCommodityComposition(t *testing.T) {
 		Production:    100,
 		Consumption:   50,
 	}
-	
+
 	// Verify that Commodity properly composes Entity
 	assert.Equal(t, "TestCommodity", commodity.Name)
 	assert.Equal(t, domain.Load, commodity.CommodityType)
@@ -113,7 +113,7 @@ func TestEntityCommodityComposition(t *testing.T) {
 	assert.Equal(t, int16(15), commodity.Sell)
 	assert.Equal(t, int16(100), commodity.Production)
 	assert.Equal(t, int16(50), commodity.Consumption)
-	
+
 	// Verify Entity fields are accessible
 	assert.Equal(t, uint(0), commodity.Entity.ID)
 	assert.True(t, commodity.Entity.CreatedAt.IsZero())

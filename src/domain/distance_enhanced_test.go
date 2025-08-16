@@ -13,11 +13,11 @@ func TestDistanceStructure(t *testing.T) {
 		ToCity:   "Visby",
 		Value:    1.5,
 	}
-	
+
 	assert.Equal(t, "Estocolmo", distance.FromCity)
 	assert.Equal(t, "Visby", distance.ToCity)
 	assert.Equal(t, float32(1.5), distance.Value)
-	
+
 	// Verify Entity inheritance
 	assert.Equal(t, uint(0), distance.ID)
 	assert.True(t, distance.CreatedAt.IsZero())
@@ -29,7 +29,7 @@ func TestDistanceEntityInheritance(t *testing.T) {
 		ToCity:   "TestCityB",
 		Value:    2.5,
 	}
-	
+
 	// Test Entity fields
 	assert.Equal(t, uint(0), distance.Entity.ID)
 	assert.True(t, distance.Entity.CreatedAt.IsZero())
@@ -39,7 +39,7 @@ func TestDistanceEntityInheritance(t *testing.T) {
 
 func TestDistanceZeroValue(t *testing.T) {
 	distance := domain.Distance{}
-	
+
 	assert.Equal(t, "", distance.FromCity)
 	assert.Equal(t, "", distance.ToCity)
 	assert.Equal(t, float32(0), distance.Value)
@@ -51,7 +51,7 @@ func TestDistanceNegativeValue(t *testing.T) {
 		ToCity:   "CityB",
 		Value:    -1.0,
 	}
-	
+
 	assert.Equal(t, float32(-1.0), distance.Value)
 }
 
@@ -61,17 +61,17 @@ func TestDistanceFloatPrecision(t *testing.T) {
 		ToCity:   "CityB",
 		Value:    1.23456789,
 	}
-	
+
 	// float32 has limited precision
 	assert.InDelta(t, 1.23456789, distance.Value, 0.000001)
 }
 
 func TestDistancesMapStructure(t *testing.T) {
 	distances := domain.Distances
-	
+
 	assert.NotNil(t, distances)
 	assert.Greater(t, len(distances), 0, "Distances map should not be empty")
-	
+
 	// Test that all cities in the Cities map have distance entries
 	for cityName := range domain.Cities {
 		cityDistances, exists := distances[cityName]
@@ -82,14 +82,14 @@ func TestDistancesMapStructure(t *testing.T) {
 
 func TestDistancesSymmetry(t *testing.T) {
 	distances := domain.Distances
-	
+
 	// Test that distances are symmetric (distance from A to B equals distance from B to A)
 	for fromCity, fromDistances := range distances {
 		for toCity, distance := range fromDistances {
 			if toDistances, exists := distances[toCity]; exists {
 				if reverseDistance, exists := toDistances[fromCity]; exists {
-					assert.Equal(t, distance, reverseDistance, 
-						"Distance from %s to %s should equal distance from %s to %s", 
+					assert.Equal(t, distance, reverseDistance,
+						"Distance from %s to %s should equal distance from %s to %s",
 						fromCity, toCity, toCity, fromCity)
 				}
 			}
@@ -99,17 +99,17 @@ func TestDistancesSymmetry(t *testing.T) {
 
 func TestDistancesCompleteness(t *testing.T) {
 	distances := domain.Distances
-	
+
 	// Count expected cities
 	expectedCities := len(domain.Cities)
-	
+
 	// Each city should have distances to all other cities (excluding itself)
 	for fromCity, fromDistances := range distances {
 		// Should have distances to all other cities
 		expectedDistanceCount := expectedCities - 1 // Excluding itself
-		assert.Equal(t, expectedDistanceCount, len(fromDistances), 
+		assert.Equal(t, expectedDistanceCount, len(fromDistances),
 			"City %s should have distances to %d other cities", fromCity, expectedDistanceCount)
-		
+
 		// Should not have distance to itself
 		_, hasSelfDistance := fromDistances[fromCity]
 		assert.False(t, hasSelfDistance, "City %s should not have distance to itself", fromCity)
@@ -118,11 +118,11 @@ func TestDistancesCompleteness(t *testing.T) {
 
 func TestDistancesPositiveValues(t *testing.T) {
 	distances := domain.Distances
-	
+
 	// All distances should be positive
 	for fromCity, fromDistances := range distances {
 		for toCity, distance := range fromDistances {
-			assert.Greater(t, distance, float32(0), 
+			assert.Greater(t, distance, float32(0),
 				"Distance from %s to %s should be positive", fromCity, toCity)
 		}
 	}
@@ -130,7 +130,7 @@ func TestDistancesPositiveValues(t *testing.T) {
 
 func TestDistancesSpecificValues(t *testing.T) {
 	distances := domain.Distances
-	
+
 	// Test some specific known distances
 	if estocolmoDistances, exists := distances["Estocolmo"]; exists {
 		if visbyDistance, exists := estocolmoDistances["Visby"]; exists {
@@ -142,13 +142,13 @@ func TestDistancesSpecificValues(t *testing.T) {
 func TestDistancesCityConsistency(t *testing.T) {
 	distances := domain.Distances
 	cities := domain.Cities
-	
+
 	// All cities in distances should exist in Cities map
 	for cityName := range distances {
 		_, exists := cities[cityName]
 		assert.True(t, exists, "City %s from distances should exist in Cities map", cityName)
 	}
-	
+
 	// All cities in Cities map should have distance entries
 	for cityName := range cities {
 		_, exists := distances[cityName]
@@ -158,7 +158,7 @@ func TestDistancesCityConsistency(t *testing.T) {
 
 func TestDistancesDataIntegrity(t *testing.T) {
 	distances := domain.Distances
-	
+
 	for fromCity, fromDistances := range distances {
 		for toCity, distance := range fromDistances {
 			// Distance should be a valid number

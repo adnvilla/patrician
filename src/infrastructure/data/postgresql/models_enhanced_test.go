@@ -13,11 +13,11 @@ func TestCityModelStructure(t *testing.T) {
 		Name:         "TestCity",
 		MarketHallID: 1,
 	}
-	
+
 	// Test basic fields
 	assert.Equal(t, "TestCity", cityModel.Name)
 	assert.Equal(t, uint(1), cityModel.MarketHallID)
-	
+
 	// Test Entity inheritance
 	assert.Equal(t, uint(0), cityModel.Entity.ID)
 	assert.True(t, cityModel.Entity.CreatedAt.IsZero())
@@ -33,7 +33,7 @@ func TestCommodityModelStructure(t *testing.T) {
 		Consumption:   50,
 		MarketHallID:  1,
 	}
-	
+
 	// Test basic fields
 	assert.Equal(t, "Beer", commodityModel.Name)
 	assert.Equal(t, int(domain.Barrel), commodityModel.CommodityType)
@@ -42,7 +42,7 @@ func TestCommodityModelStructure(t *testing.T) {
 	assert.Equal(t, int16(100), commodityModel.Production)
 	assert.Equal(t, int16(50), commodityModel.Consumption)
 	assert.Equal(t, uint(1), commodityModel.MarketHallID)
-	
+
 	// Test Entity inheritance
 	assert.Equal(t, uint(0), commodityModel.Entity.ID)
 }
@@ -60,20 +60,20 @@ func TestMarketHallModelStructure(t *testing.T) {
 			MarketHallID:  1,
 		},
 	}
-	
+
 	marketHallModel := postgresql.MarketHallModel{
 		Commodities: commodities,
 		CityID:      1,
 	}
-	
+
 	// Test basic fields
 	assert.Equal(t, uint(1), marketHallModel.CityID)
 	assert.Equal(t, 2, len(marketHallModel.Commodities))
-	
+
 	// Test commodities
 	assert.Equal(t, "Beer", marketHallModel.Commodities[0].Name)
 	assert.Equal(t, "Cloth", marketHallModel.Commodities[1].Name)
-	
+
 	// Test Entity inheritance
 	assert.Equal(t, uint(0), marketHallModel.Entity.ID)
 }
@@ -84,12 +84,12 @@ func TestDistanceModelStructure(t *testing.T) {
 		ToCity:   "Visby",
 		Value:    1.5,
 	}
-	
+
 	// Test basic fields
 	assert.Equal(t, "Estocolmo", distanceModel.FromCity)
 	assert.Equal(t, "Visby", distanceModel.ToCity)
 	assert.Equal(t, float32(1.5), distanceModel.Value)
-	
+
 	// Test Entity inheritance
 	assert.Equal(t, uint(0), distanceModel.Entity.ID)
 }
@@ -102,7 +102,7 @@ func TestCommodityTypeMapping(t *testing.T) {
 	loadModel := postgresql.CommodityModel{
 		CommodityType: int(domain.Load),
 	}
-	
+
 	assert.Equal(t, int(domain.Barrel), barrelModel.CommodityType)
 	assert.Equal(t, int(domain.Load), loadModel.CommodityType)
 	assert.NotEqual(t, barrelModel.CommodityType, loadModel.CommodityType)
@@ -113,20 +113,20 @@ func TestModelRelationships(t *testing.T) {
 	marketHall := postgresql.MarketHallModel{
 		CityID: 1,
 	}
-	
+
 	city := postgresql.CityModel{
 		Name:         "TestCity",
 		MarketHallID: 1,
 		MarketHall:   marketHall,
 	}
-	
+
 	commodity := postgresql.CommodityModel{
 		Name:         "Beer",
 		MarketHallID: 1,
 	}
-	
+
 	// Test relationships
-	assert.Equal(t, city.MarketHallID, marketHall.Entity.ID) // This would be set by GORM
+	assert.Equal(t, city.MarketHallID, marketHall.Entity.ID)      // This would be set by GORM
 	assert.Equal(t, commodity.MarketHallID, marketHall.Entity.ID) // This would be set by GORM
 }
 
@@ -137,7 +137,7 @@ func TestModelZeroValues(t *testing.T) {
 		assert.Equal(t, uint(0), city.MarketHallID)
 		assert.Equal(t, uint(0), city.Entity.ID)
 	})
-	
+
 	t.Run("CommodityModel", func(t *testing.T) {
 		var commodity postgresql.CommodityModel
 		assert.Equal(t, "", commodity.Name)
@@ -148,13 +148,13 @@ func TestModelZeroValues(t *testing.T) {
 		assert.Equal(t, int16(0), commodity.Consumption)
 		assert.Equal(t, uint(0), commodity.MarketHallID)
 	})
-	
+
 	t.Run("MarketHallModel", func(t *testing.T) {
 		var marketHall postgresql.MarketHallModel
 		assert.Nil(t, marketHall.Commodities)
 		assert.Equal(t, uint(0), marketHall.CityID)
 	})
-	
+
 	t.Run("DistanceModel", func(t *testing.T) {
 		var distance postgresql.DistanceModel
 		assert.Equal(t, "", distance.FromCity)
@@ -169,7 +169,7 @@ func TestModelFieldTypes(t *testing.T) {
 		assert.IsType(t, "", city.Name)
 		assert.IsType(t, uint(0), city.MarketHallID)
 	})
-	
+
 	t.Run("CommodityModel", func(t *testing.T) {
 		commodity := postgresql.CommodityModel{}
 		assert.IsType(t, "", commodity.Name)
@@ -180,7 +180,7 @@ func TestModelFieldTypes(t *testing.T) {
 		assert.IsType(t, int16(0), commodity.Consumption)
 		assert.IsType(t, uint(0), commodity.MarketHallID)
 	})
-	
+
 	t.Run("DistanceModel", func(t *testing.T) {
 		distance := postgresql.DistanceModel{}
 		assert.IsType(t, "", distance.FromCity)
@@ -197,7 +197,7 @@ func TestModelInstantiation(t *testing.T) {
 	}
 	assert.NotNil(t, city)
 	assert.Equal(t, "Estocolmo", city.Name)
-	
+
 	commodity := postgresql.CommodityModel{
 		Name:          "Beer",
 		CommodityType: int(domain.Barrel),
@@ -209,14 +209,14 @@ func TestModelInstantiation(t *testing.T) {
 	}
 	assert.NotNil(t, commodity)
 	assert.Equal(t, "Beer", commodity.Name)
-	
+
 	marketHall := postgresql.MarketHallModel{
 		Commodities: []postgresql.CommodityModel{commodity},
 		CityID:      1,
 	}
 	assert.NotNil(t, marketHall)
 	assert.Equal(t, 1, len(marketHall.Commodities))
-	
+
 	distance := postgresql.DistanceModel{
 		FromCity: "Estocolmo",
 		ToCity:   "Visby",

@@ -9,9 +9,9 @@ import (
 
 func TestCommodityStockCalculations(t *testing.T) {
 	testCases := []struct {
-		name        string
-		production  int16
-		consumption int16
+		name          string
+		production    int16
+		consumption   int16
 		expectedStock int16
 	}{
 		{"Zero production and consumption", 0, 0, 0},
@@ -153,23 +153,23 @@ func TestCommodityBoundaryValues(t *testing.T) {
 
 func TestCommodityModification(t *testing.T) {
 	commodities := domain.GetCommodities()
-	
+
 	// Modify a commodity
 	beer := commodities["Beer"]
 	originalBeer := *beer // Copy the original
-	
+
 	beer.Buy = 10
 	beer.Sell = 15
 	beer.Production = 100
 	beer.Consumption = 30
-	
+
 	// Verify modifications
 	assert.Equal(t, int16(10), beer.Buy)
 	assert.Equal(t, int16(15), beer.Sell)
 	assert.Equal(t, int16(100), beer.Production)
 	assert.Equal(t, int16(30), beer.Consumption)
 	assert.Equal(t, int16(70), beer.GetStock())
-	
+
 	// Verify name and type haven't changed
 	assert.Equal(t, originalBeer.Name, beer.Name)
 	assert.Equal(t, originalBeer.CommodityType, beer.CommodityType)

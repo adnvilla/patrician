@@ -176,11 +176,11 @@ func TestDefaultCities(t *testing.T) {
 
 func TestCityEntityProperties(t *testing.T) {
 	city := domain.Cities["Estocolmo"]
-	
+
 	// Test that the city has Entity properties
 	assert.NotNil(t, city)
 	assert.Equal(t, "Estocolmo", city.Name)
-	
+
 	// Test MarketHall initialization
 	commodities := domain.GetCommodities()
 	city.SetMarketHall(domain.MarketHall{Commodities: commodities})

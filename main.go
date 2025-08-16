@@ -23,7 +23,7 @@ func main() {
 
 	router.Use(cors.Default())
 
-	swagger, err := openapi3.NewLoader().LoadFromFile("docs/apenapi.yaml")
+	swagger, err := openapi3.NewLoader().LoadFromFile("docs/openapi.yaml")
 	if err != nil {
 		log.Fatalf("load swagger: %v", err)
 	}
