@@ -1,25 +1,24 @@
 package postgresql
 
 import (
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"os"
+        "os"
+
+        dbgo "github.com/adnvilla/db-go"
+        "gorm.io/gorm"
 )
 
-var db *gorm.DB
-
 // GetDB initializes and returns the global gorm DB instance. It reads the
-// connection string from the POSTGRES_DSN environment variable.
+// connection string from the POSTGRES_DSN environment variable and uses the
+// adnvilla/db-go package to establish the connection.
 func GetDB() (*gorm.DB, error) {
-	if db != nil {
-		return db, nil
-	}
-	dsn := os.Getenv("POSTGRES_DSN")
-	if dsn == "" {
-		// fallback to default local connection for tests
-		dsn = "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
-	}
-	var err error
-	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	return db, err
+        dsn := os.Getenv("POSTGRES_DSN")
+        if dsn == "" {
+                // fallback to default local connection for tests
+                dsn = "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
+        }
+
+        if conn.Error != nil {
+                return nil, conn.Error
+        }
+        return conn.Instance, nil
 }
