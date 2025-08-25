@@ -17,6 +17,8 @@ func GetDB() (*gorm.DB, error) {
                 dsn = "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
         }
 
-        conn := dbgo.GetConnection(dbgo.Config{PrimaryDSN: dsn})
-        return conn.Instance, conn.Error
+        if conn.Error != nil {
+                return nil, conn.Error
+        }
+        return conn.Instance, nil
 }
