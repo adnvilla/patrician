@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/adnvilla/patrician/src/domain"
-	"github.com/adnvilla/patrician/src/infrastructure/data/postgresql"
+	"github.com/adnvilla/patrician/internal/domain"
+	"github.com/adnvilla/patrician/internal/infrastructure/data/postgresql"
 )
 
 func setupPostgresDB(t *testing.T) {
