@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  postgres_primary:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256\nhost replication all 0.0.0.0/0 md5"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.data/master-data:/var/lib/postgresql/data
+    command: |
+      postgres
+      -c wal_level=replica
+      -c max_wal_senders=10
+      -c max_replication_slots=10
+      -c hot_standby=on
+
+  postgres_replica:
+    image: postgres:14
+    environment:
+      PGPASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/replica-data:/var/lib/postgresql/data
+    command: |
+      bash -c "
+        until pg_basebackup --pgdata=/var/lib/postgresql/data -R --slot=replication_slot --host=postgres_primary --port=5432 -U user
+        do
+          sleep 1
+        done
+        postgres
+      "
+    depends_on:
+      - postgres_primary

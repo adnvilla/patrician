@@ -9,3 +9,6 @@ commit_hash.go
 *.bak
 
 coverage.out
+
+# Data files
+.data/
