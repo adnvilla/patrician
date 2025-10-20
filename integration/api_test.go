@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/adnvilla/patrician/src/domain"
-	"github.com/adnvilla/patrician/src/infrastructure/data/postgresql"
-	"github.com/adnvilla/patrician/src/interfaces/handlers"
+	"github.com/adnvilla/patrician/internal/domain"
+	"github.com/adnvilla/patrician/internal/infrastructure/data/postgresql"
+	"github.com/adnvilla/patrician/internal/interfaces/handlers"
 	"github.com/gin-gonic/gin"
 )
 

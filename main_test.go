@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/adnvilla/patrician/src/domain"
-	"github.com/adnvilla/patrician/src/interfaces/handlers"
+	"github.com/adnvilla/patrician/internal/domain"
+	"github.com/adnvilla/patrician/internal/interfaces/handlers"
 	middleware "github.com/deepmap/oapi-codegen/pkg/gin-middleware"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gin-gonic/gin"

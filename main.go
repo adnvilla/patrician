@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/adnvilla/patrician/src/domain"
-	"github.com/adnvilla/patrician/src/interfaces/handlers"
+	"github.com/adnvilla/patrician/internal/domain"
+	"github.com/adnvilla/patrician/internal/interfaces/handlers"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
